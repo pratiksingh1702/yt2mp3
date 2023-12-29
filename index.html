@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <title>Get YouTube Video ID</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container-fluid {
+            margin-top: 50px;
+        }
+
+        .myc {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #youtubeLink {
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        iframe {
+            margin-top: 20px;
+        }
+
+        #result {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="myc">
+            <label for="youtubeLink">Enter YouTube Link:</label>
+            <input type="text" id="youtubeLink" class="form-control" placeholder="https://youtu.be/VIDEO_ID or https://www.youtube.com/watch?v=VIDEO_ID">
+            <button class="btn btn-primary" onclick="changeIframeSrc()">Click to get download link</button>
+            <iframe id="myIframe" scrolling="no"
+                style="width: 100%; min-width: 200px; max-width: 350px; height: 57px; border: 0px; overflow: hidden;"></iframe>
+            
+        </div>
+    </div>
+
+    <script>
+        function changeIframeSrc() {
+            var youtubeLink = document.getElementById("youtubeLink").value;
+            var videoId = extractVideoId(youtubeLink);
+
+            if (videoId) {
+                document.getElementById("myIframe").src = `https://ytc.life/button/mp3/${videoId}?bg=ff4d4d&textColor=2c2c2c&lang=en`;
+                document.getElementById("result").innerText = "YouTube Video ID: " + videoId;
+            } else {
+                alert("Please enter a valid YouTube link to get the Video ID first.");
+            }
+        }
+
+        function extractVideoId(url) {
+            var videoIdMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+            return videoIdMatch ? videoIdMatch[1] : null;
+        }
+    </script>
+</body>
+
+</html>
